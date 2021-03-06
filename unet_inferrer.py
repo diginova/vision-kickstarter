@@ -14,7 +14,7 @@ class UnetInferrer:
         self.config = Config.from_json(CFG)
         self.image_size = self.config.data.image_size
 
-        self.saved_path = '/home/sinem/Belgeler/app/saved_models/unet/1'
+        self.saved_path = 'saved_models/unet/1'
         self.model = tf.saved_model.load(self.saved_path)
 
         # print(list(    self.model.signatures.keys()))

@@ -17,7 +17,7 @@ class DataLoader:
     @staticmethod
     def load_data(data_config):
         """Loads dataset from path"""
-        return tfds.load(data_config.path, with_info=data_config.load_with_info, download=True)
+        return tfds.load(data_config.path, with_info=data_config.load_with_info)
 
     @staticmethod
     def validate_schema(data_point):

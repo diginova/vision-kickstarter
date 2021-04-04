@@ -1,21 +1,25 @@
 # Vision-Kickstarter
 Docker based ML / CV project skeleton
-#Build Image
+## Build Image
 ```
 docker build -t vision-tensorflow .
 ```
-#Create Container
+## Create Container
 ```
 docker run -v {host-path}:/opt/project -p 8888:8888 --name vision-kickstarter -it vision-tensorflow
 ```
-#PyCharm Configurations
+## Jupyter Notebook Server
+```
+docker exec vision-kickstarter jupyter notebook list
+```
+## PyCharm Configurations
 Clone project and create run/debug configurations with below settings in PyCharm
-## Docker Server
+### Docker Server
 Open Preferences > Build,Execution,Deployment > Docker : Add docker server
-## Docker Remote Interpreter
+### Docker Remote Interpreter
 Open Preferences > Project > Python interpreter > Add Python Interpreter : Select Docker  
 Configure "Path mappings" setting in Python Interpreter: {project-root} → /opt/project
-## Dockerfile
+### Dockerfile
 Create new Dockerfile configuration with below settings and run this file to build docker image and container:
 - Image Tag: vision-tensorflow
 - Container name: vision-kickstarter
@@ -23,18 +27,14 @@ Create new Dockerfile configuration with below settings and run this file to bui
 - Bind ports: 8888:8888
 - Bind mounts: {host-path}:/opt/project
 - Run build image: checked
-## Flask (apps/service.py)
+### Flask (apps/service.py)
 Create new Flask (apps/service.py) configuration with below settings and run this file:
 - FLASK_ENV: development
 - FLASK_DEBUG: checked
 - Docker container settings 
     - Port bindings: 5000:5000
     - Volume bindings: {host-path}:/opt/project
-# Jupyter Notebook Server
-```
-docker exec vision-kickstarter jupyter notebook list
-```
-# Run Python App in Container
+## Run Python App in Container
 ```
 docker exec {container-name} python {path-of-app-file}
 ```

@@ -3,14 +3,14 @@ import traceback
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
 from flask import Flask, jsonify, request
-from executors.unet_inferrer import UnetInferrer
+from executors.dnn_inferrer import DnnInferrer
 app = Flask(__name__)
 
 APP_ROOT = os.getenv('APP_ROOT', '/infer')
 HOST = "127.0.0.1"
 PORT_NUMBER = int(os.getenv('PORT_NUMBER', 5000))
 
-u_net = UnetInferrer()
+u_net = DnnInferrer()
 
 
 @app.route(APP_ROOT, methods=["POST"])
@@ -27,5 +27,4 @@ def handle_exception(e):
 
 if __name__ == '__main__':
     app.run(host=HOST, port=PORT_NUMBER)
-
 

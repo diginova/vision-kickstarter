@@ -6,6 +6,7 @@ import os
 import sys
 import tarfile
 import requests
+import asyncio
 
 if sys.version_info[0] < 3:
     from urllib2 import urlopen
@@ -25,9 +26,13 @@ class Model:
         self.sha = kwargs.pop('sha', None)
         self.archive = kwargs.pop('archive', None)
         self.member = kwargs.pop('member', None)
+        self.dnn_konum = ""
 
     def __str__(self):
         return 'Model <{}>'.format(self.name)
+
+    def set_dnn_konum(self,konum):
+        self.dnn_konum = konum
 
     def printRequest(self, r):
         def getMB(r):
@@ -43,6 +48,7 @@ class Model:
             return False
         print('  expect {}'.format(self.sha))
         sha = hashlib.sha1()
+        self.filename = self.dnn_konum + self.filename
         try:
             with open(self.filename, 'rb') as f:
                 while True:
@@ -177,10 +183,58 @@ def GDrive(gid):
     return download_gdrive
 
 
-models = [
-    Model(
+
+class download_process :
+    def __init__(self, isim, location):
+        self.isim = isim
+        self.location = location
+        self.failed_models = None
+        # Note: models will be downloaded to current working directory
+        #       expected working directory is <testdata>/dnn
+        self.models = [Model(
         name='GoogleNet',
         url='http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel',
+        sha='405fc5acd08a3bb12de8ee5e23a96bec22f08204',
+        filename='bvlc_googlenet.caffemodel')]
+
+    def process(self):
+        if len(sys.argv) > 1:
+            self.isim = sys.argv[1]
+            print('Model: ' + self.isim)
+
+        self.failed_models = []
+
+        for m in self.models:
+            m.set_dnn_konum(self.location)
+            print(m)
+            if self.isim is not None and not m.name.startswith(self.isim):
+                continue
+
+            if not m.get():
+                self.failed_models.append(m.filename)
+        return True
+
+        if self.failed_models:
+            print("Following models have not been downloaded:")
+            for f in self.failed_models:
+                print("* {}".format(f))
+            exit(15)
+
+
+if __name__ == '__main__':
+    print("basla")
+    c = download_process("GoogleNet", "weights/")
+    print("bitis")
+    #asyncio.run(c.process())
+
+    c.process()
+
+
+
+models=[
+    Model(
+        name='GoogleNet',
+        url='https://www.google.com/',#'http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel',
         sha='405fc5acd08a3bb12de8ee5e23a96bec22f08204',
         filename='bvlc_googlenet.caffemodel'),
     Model(
@@ -953,26 +1007,3 @@ models = [
         sha='12ff8b1f5c8bff62e8dd91eabdacdfc998be255e',
         filename='onnx/models/face_recognizer_fast.onnx'),
 ]
-
-# Note: models will be downloaded to current working directory
-#       expected working directory is <testdata>/dnn
-if __name__ == '__main__':
-
-    selected_model_name = 'GoogleNet'
-    if len(sys.argv) > 1:
-        selected_model_name = sys.argv[1]
-        print('Model: ' + selected_model_name)
-
-    failedModels = []
-    for m in models:
-        print(m)
-        if selected_model_name is not None and not m.name.startswith(selected_model_name):
-            continue
-        if not m.get():
-            failedModels.append(m.filename)
-
-    if failedModels:
-        print("Following models have not been downloaded:")
-        for f in failedModels:
-            print("* {}".format(f))
-        exit(15)

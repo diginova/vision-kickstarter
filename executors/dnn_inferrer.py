@@ -3,7 +3,8 @@ import numpy as np
 import sys
 import os
 import json
-from PIL import Image as im
+from utils.download import download_process
+import asyncio
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../'))
 
@@ -76,6 +77,8 @@ class DnnInferrer:
         sonuc = json.dumps(result)
 
         return sonuc
+
+
 
     def infer(self, image):
         data = np.asarray(image, dtype=np.float32)

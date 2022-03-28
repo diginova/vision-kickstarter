@@ -55,7 +55,7 @@ class DnnInferrer:
                 "width": "",
                 "height": "",
             }
-            if confidence > 0.4:
+            if confidence > 0.4:#float32
                 confidence = np.float64(confidence)
                 veri.update({"confidence": confidence})
                 # get the class id

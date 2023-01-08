@@ -3,8 +3,8 @@
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
-from src.configs.config import CFG
-from src.models.unet import UNet
+from src.config.config import CFG
+from src.model.unet import UNet
 
 
 def train():

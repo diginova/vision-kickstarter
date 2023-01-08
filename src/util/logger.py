@@ -8,7 +8,7 @@ from configs.config import CFG
 
 config = Config.from_json(CFG)
 
-with open(config.project.path + '/src/configs/logging_config.yaml', 'r') as f:
+with open(config.project.path + '/src/config/logging_config.yaml', 'r') as f:
     config_log = yaml.safe_load(f.read())
     logging.config.dictConfig(config_log)
     logging.captureWarnings(True)

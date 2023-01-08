@@ -7,7 +7,7 @@ from utils.config import Config
 
 
 class BaseModel(ABC):
-    """Abstract Model class that is inherited to all models"""
+    """Abstract Model class that is inherited to all model"""
 
     def __init__(self, cfg):
         self.config = Config.from_json(cfg)

@@ -3,7 +3,7 @@ import traceback
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
 from flask import Flask, jsonify, request
-from src.executors.unet_inferrer import  UnetInferrer
+from src.executor.unet_inferrer import  UnetInferrer
 app = Flask(__name__)
 
 APP_ROOT = os.getenv('APP_ROOT', '/api')

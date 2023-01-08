@@ -21,12 +21,12 @@ class UnetTrainer:
         self.epoches = epoches
 
         self.checkpoint = tf.train.Checkpoint(optimizer=optimizer, model=model)
-        self.checkpoint_manager = tf.train.CheckpointManager(self.checkpoint, self.config.project.path + '/src/weights/unet/tf_ckpts', max_to_keep=3)
+        self.checkpoint_manager = tf.train.CheckpointManager(self.checkpoint, self.config.project.path + '/src/weight/unet/tf_ckpts', max_to_keep=3)
 
         self.train_log_dir = self.config.project.path + self.config.project.path + '/logs/gradient_tape/'
         self.train_summary_writer = tf.summary.create_file_writer(self.train_log_dir)
 
-        self.model_save_path = self.config.project.path + '/src/weights/'
+        self.model_save_path = self.config.project.path + '/src/weight/'
 
     def train_step(self, batch):
         trainable_variables = self.model.trainable_variables

@@ -3,7 +3,7 @@
 
 from abc import ABC, abstractmethod
 
-from utils.config import Config
+from util.config import Config
 
 
 class BaseModel(ABC):

@@ -3,10 +3,10 @@ import numpy as np
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
-from utils.plot_image import display
+from util.plot_image import display
 
-from utils.config import Config
-from configs.config import CFG
+from util.config import Config
+from config.config import CFG
 
 
 class UnetInferrer:

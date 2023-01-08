@@ -6,9 +6,9 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
 # external
 import tensorflow as tf
-from dataloaders.dataloader import DataLoader
+from dataloader.dataloader import DataLoader
 from utils.logger import get_logger
-from executors.unet_trainer import UnetTrainer
+from executor.unet_trainer import UnetTrainer
 from tensorflow_examples.models.pix2pix import pix2pix
 
 # internal
